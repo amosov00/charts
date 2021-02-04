@@ -2,11 +2,11 @@
   <div id="chart-demo">
     <DxChart
         id="chart"
-        :data-source="dataSource"
+        :data-source="data"
         palette="Violet"
     >
       <DxCommonSeriesSettings
-          argument-field="country"
+          argument-field="Дата"
       />
       <DxSeries
           v-for="energy in energySources"
@@ -46,8 +46,6 @@ import {
 } from 'devextreme-vue/chart';
 import DxSelectBox from 'devextreme-vue/select-box';
 
-import service from './data.js';
-
 export default {
 
   components: {
@@ -67,10 +65,15 @@ export default {
 
   data() {
     return {
-      dataSource: service.getCountriesInfo(),
-      energySources: service.getEnergySources(),
+      energySources: [{ value: 'Процент', name: 'Процент' }],
     };
-  }
+  },
+  props: {
+    data: {
+      type: Array,
+      default: []
+    }
+  },
 };
 </script>
 <style>
@@ -90,5 +93,8 @@ export default {
 .option > .dx-widget {
   display: inline-block;
   vertical-align: middle;
+}
+#chart-demo {
+  padding: 30px
 }
 </style>
